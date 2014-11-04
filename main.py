@@ -1,9 +1,13 @@
 # Main file
+from problem_generator import generateProblem
+from init_solver import generateSolution
+from goal_function_additions import Point
 
-import genp
 
-
-points = 10
-problem = genp.generate(points, 5, 10)
-for point in problem:
-    print point
+problem = generateProblem(10, 5, 5)
+for workPoint in problem:
+    print workPoint
+solution = generateSolution(problem)
+print solution
+for i in range(0, 10):
+    print solution.count(i)

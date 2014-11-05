@@ -20,6 +20,10 @@ class Point(object):
     def __str__(self):
         return "[" + str(self.x) + ", " + str(self.y) + "]"
 
+class WorkPoint(object):
+    number = 0
+    point = Point()
+    toolsList = []
 
 class Solver(object):
     __problem = []
@@ -27,6 +31,7 @@ class Solver(object):
     __solution = []
     __solutionLength = 0
     __toolsWorkload = []
+    __toolsSwitchTime = []
     __toolsCount = 0
     __cost = 0
 
@@ -37,6 +42,11 @@ class Solver(object):
     def setToolsWorkload(self, toolsWorkload):
         self.__toolsWorkload = toolsWorkload
         self.__toolsCount = len(toolsWorkload)
+
+    def setToolsSwitchTime(self, toolsSwitchTime):
+        if(len(toolsSwitchTime) != len(self.__toolsWorkload)):
+            print "You must add tools workloads first"
+        self.__toolsSwitchTime = toolsSwitchTime
 
     def getProblem(self):
         return self.__problem
@@ -76,14 +86,14 @@ class Solver(object):
     #   k_i     is a number of work point needed to process in i-th step
         self.__cost = 0
         self.__solution = []
-        previousPoint = Point(0,0)
+        previousWorkPoint = Point(0,0)
         problemCopy = deepcopy(self.__problem)
         while(len(problemCopy) != 0):
             workPointToAddIndex = randint(0, len(problemCopy) - 1)
             # TODO: Make function count tool changes cost also
             self.__cost += self.__toolsWorkload[problemCopy[workPointToAddIndex][2][0]]
-            self.__cost += previousPoint.distanceSqr(problemCopy[workPointToAddIndex][1])
-            previousPoint = problemCopy[workPointToAddIndex][1].copy();
+            self.__cost += previousWorkPoint.distanceSqr(problemCopy[workPointToAddIndex][1])
+            previousWorkPoint = problemCopy[workPointToAddIndex][1];
             del(problemCopy[workPointToAddIndex][2][0])
             self.__solution.append(problemCopy[workPointToAddIndex][0])
             if(len(problemCopy[workPointToAddIndex][2]) == 0):

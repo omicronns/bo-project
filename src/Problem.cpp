@@ -7,3 +7,6 @@
 
 #include "Problem.h"
 
+void Problem::generateProblem(int workpoints, int maxtools, ToolChain toolchain) {
+
+}

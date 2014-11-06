@@ -9,15 +9,20 @@
 #include <string>
 #include <unordered_set>
 
-#include "Tools.h"
+#include "Problem.h"
 
 int main(void) {
 	std::cout << "hello" << "\n";
 
-	ToolChain tlc;
+	Workpoint pt(0, 0, 1);
 
-	tlc.addTool("wiertlo");
-	tlc.addTool("mlotek");
+	pt.pushTool(5);
+	pt.pushTool(3);
+	pt.pushTool(2);
+	std::cout << pt.popTool() << " " << pt.toolsCount() << "\n";
+	std::cout << pt.popTool() << " " << pt.toolsCount() << "\n";
+	std::cout << pt.popTool() << " " << pt.toolsCount() << "\n";
+	std::cout << pt.popTool() << " " << pt.toolsCount() << "\n";
 
-	std::cout << tlc.getToolName(2) << "\n";
+	return 0;
 }

@@ -9,7 +9,7 @@
 #define TOOLS_H_
 
 #include <string>
-#include <list>
+#include <vector>
 
 class Tool {
 	std::string toolName;
@@ -37,9 +37,11 @@ public:
 	}
 };
 
+
+
 class ToolChain {
 	int toolCount;
-	std::list<Tool> toolChain;
+	std::vector<Tool> toolChain;
 
 public:
 	ToolChain() :
@@ -52,15 +54,15 @@ public:
 
 	int addTool(std::string toolName) {
 		if(getToolId(toolName) == -1) {
-			toolChain.push_front(Tool(toolCount++, toolName));
-			return toolChain.front().getToolId();
+			toolChain.push_back(Tool(toolCount++, toolName));
+			return toolChain.back().getToolId();
 		}
 		return -1;
 	}
 
 	int getToolId(std::string toolName) {
 		if(!toolChain.empty()) {
-			for(std::list<Tool>::iterator it = toolChain.begin(); it != toolChain.end(); ++it) {
+			for(std::vector<Tool>::iterator it = toolChain.begin(); it != toolChain.end(); ++it) {
 				if(it->getToolName() == toolName)
 					return it->getToolId();
 			}
@@ -69,13 +71,12 @@ public:
 	}
 
 	std::string getToolName(int toolId) {
-		if(!toolChain.empty() && toolId >= 0 && toolId < toolCount) {
-			std::list<Tool>::iterator it = toolChain.begin();
-			while(--toolId)
-				++it;
-			return it->getToolName();
+		if(toolId >= 0 && toolId < (int)toolChain.size()) {
+			return toolChain[toolId].getToolName();
 		}
-		return "[err: no tool fount at that id]";
+		else {
+			return "[err: trying to access tool at index outside toolChain]";
+		}
 	}
 };
 

@@ -8,6 +8,7 @@
 #ifndef TOOLS_H_
 #define TOOLS_H_
 
+#include <stdexcept>
 #include <string>
 #include <vector>
 
@@ -71,10 +72,10 @@ public:
 	}
 
 	std::string getToolName(int toolId) {
-		if(toolId >= 0 && toolId < (int)toolChain.size()) {
-			return toolChain[toolId].getToolName();
+		try {
+			return toolChain.at(toolId).getToolName();
 		}
-		else {
+		catch(std::out_of_range &e) {
 			return "[err: trying to access tool at index outside toolChain]";
 		}
 	}

@@ -66,7 +66,7 @@ void Solver::permuteSolution(int iterations) {
 
 double Solver::solve(int iterations) {
     double bestCost = calcCost();
-    std::vector<int> bestSolution;
+    std::vector<int> bestSolution = solution;
 
     while(iterations--) {
         permuteSolution(10);
@@ -75,9 +75,9 @@ double Solver::solve(int iterations) {
             bestCost = cost;
             bestSolution = solution;
         }
-//        else {
-//            solution = bestSolution;
-//        }
+        else {
+            solution = bestSolution;
+        }
     }
     solution = bestSolution;
     return bestCost;

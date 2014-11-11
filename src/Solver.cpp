@@ -9,7 +9,7 @@
 #include "Random.h"
 
 Solver::Solver(Problem problem)
-        : problem(problem){
+        : problem(problem) {
     std::vector<Workpoint> workpoints = problem.getWorkpoints();
     Random rand;
     while(workpoints.size() != 0) {
@@ -45,7 +45,7 @@ double Solver::calcCost() {
         if(tool != lastTool) {
             cost += toolchain.getTool(tool).getToolCost();
             cost += lastPoint.distanceSqr(Point()) + workpoints[*it].getPoint().distanceSqr(Point());
-            std::cout << lastTool << "->" << tool << "\n";
+//            std::cout << lastTool << "->" << tool << "\n";
             lastTool = tool;
         }
         lastPoint = workpoints[*it].getPoint();
@@ -62,4 +62,23 @@ void Solver::permuteSolution(int iterations) {
         solution[i] = solution[j];
         solution[j] = tmp;
     }
+}
+
+double Solver::solve(int iterations) {
+    double bestCost = calcCost();
+    std::vector<int> bestSolution;
+
+    while(iterations--) {
+        permuteSolution(10);
+        double cost = calcCost();
+        if(cost < bestCost) {
+            bestCost = cost;
+            bestSolution = solution;
+        }
+//        else {
+//            solution = bestSolution;
+//        }
+    }
+    solution = bestSolution;
+    return bestCost;
 }

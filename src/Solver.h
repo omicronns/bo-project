@@ -22,6 +22,7 @@ public:
     Problem getProblem();
     double calcCost();
     void permuteSolution(int iterations);
+    double solve(int iterations);
 };
 
 #endif /* SOLVER_H_ */

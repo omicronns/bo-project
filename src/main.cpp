@@ -22,28 +22,12 @@ int main(void) {
     tlc.addTool("łyżka");
     tlc.addTool("widelec");
 
-	Solver slv(Problem(2, 5, tlc));
+	Solver slv(Problem(10, 5, tlc));
 
     std::cout << tlc << slv.getProblem();
 
-	std::vector<int> solution = slv.getSolution();
-
-    for(std::vector<int>::iterator it = solution.begin(); it != solution.end(); ++it) {
-        std::cout << *it << "; ";
-    }
-    std::cout << "\n";
-    std::cout << "\n" << slv.calcCost();
-
-//    for(int i = 0; i < 1000; ++i)
-//        slv.permuteSolution(100);
-//    solution = slv.getSolution();
-//    std::cout << "\n";
-//
-//    for(std::vector<int>::iterator it = solution.begin(); it != solution.end(); ++it) {
-//        std::cout << *it << "; ";
-//    }
-//
-//	std::cout << "\n" << slv.calcCost();
+    std::cout << "\ninit cost:\n" << slv.calcCost() << "\n";
+    std::cout << "best found cost:\n" << slv.solve(10000) << "\n";
 
 	return 0;
 }

@@ -14,11 +14,13 @@
 class Tool {
     std::string name;
     int id;
+    double cost;
 
 public:
-    Tool(int id, std::string name);
+    Tool(int id, std::string name, double cost = 0.0);
     std::string getToolName() const;
     int getToolId() const;
+    double getToolCost() const;
     bool operator==(const Tool &tool) const;
     bool operator!=(const Tool &tool) const;
 };

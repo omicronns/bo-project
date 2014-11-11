@@ -7,8 +7,8 @@
 
 #include "Tool.h"
 
-Tool::Tool(int id, std::string name) :
-        name(name), id(id) {
+Tool::Tool(int id, std::string name, double cost) :
+        name(name), id(id), cost(cost) {
 }
 
 std::string Tool::getToolName() const {
@@ -21,6 +21,10 @@ int Tool::getToolId() const {
 
 bool Tool::operator==(const Tool &tool) const {
     return id == tool.id;
+}
+
+double Tool::getToolCost() const {
+    return cost;
 }
 
 bool Tool::operator!=(const Tool &tool) const {

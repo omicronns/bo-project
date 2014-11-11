@@ -12,9 +12,9 @@ Toolchain::Toolchain() :
         toolCount(0) {
 }
 
-int Toolchain::addTool(std::string name) {
+int Toolchain::addTool(std::string name, double cost) {
     if(getToolId(name) == -1) {
-        toolChain.push_back(Tool(toolCount++, name));
+        toolChain.push_back(Tool(toolCount++, name, cost));
         return toolChain.back().getToolId();
     }
     return -1;

@@ -19,7 +19,7 @@ class Toolchain {
 
 public:
     Toolchain();
-    int addTool(std::string name);
+    int addTool(std::string name, double cost = 0.0);
     int getToolsCount() const;
     int getToolId(std::string name) const;
     std::string getToolName(int id) const;

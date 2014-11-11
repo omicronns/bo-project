@@ -20,6 +20,8 @@ public:
     Solver(Problem problem);
     std::vector<int> getSolution();
     Problem getProblem();
+    double calcCost();
+    void permuteSolution(int iterations);
 };
 
 #endif /* SOLVER_H_ */

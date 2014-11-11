@@ -32,3 +32,34 @@ std::vector<int> Solver::getSolution() {
 Problem Solver::getProblem() {
     return problem;
 }
+
+double Solver::calcCost() {
+    Point lastPoint = Point();
+    double cost = 0.0;
+    std::vector<Workpoint> workpoints = problem.getWorkpoints();
+    Toolchain toolchain = problem.getToolchain();
+    int lastTool = -1;
+    for(std::vector<int>::iterator it = solution.begin(); it != solution.end(); ++it) {
+        cost += lastPoint.distanceSqr(workpoints[*it].getPoint());
+        int tool = workpoints[*it].popTool();
+        if(tool != lastTool) {
+            cost += toolchain.getTool(tool).getToolCost();
+            cost += lastPoint.distanceSqr(Point()) + workpoints[*it].getPoint().distanceSqr(Point());
+            std::cout << lastTool << "->" << tool << "\n";
+            lastTool = tool;
+        }
+        lastPoint = workpoints[*it].getPoint();
+    }
+    return cost;
+}
+
+void Solver::permuteSolution(int iterations) {
+    Random rand;
+    while(iterations--) {
+        int i = rand.randi(0, solution.size() - 1);
+        int j = rand.randi(0, solution.size() - 1);
+        int tmp = solution[i];
+        solution[i] = solution[j];
+        solution[j] = tmp;
+    }
+}

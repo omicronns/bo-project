@@ -41,8 +41,8 @@ std::list<int> Workpoint::getToolSequence() const {
 
 int Workpoint::popTool() {
     if(toolSequence.size() != 0) {
-        int poppedTool = toolSequence.front();
-        toolSequence.pop_front();
+        int poppedTool = toolSequence.back();
+        toolSequence.pop_back();
         return poppedTool;
     }
     else {

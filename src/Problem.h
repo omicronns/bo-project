@@ -13,16 +13,15 @@
 #include <string>
 #include <vector>
 
-#include "Point.h"
-#include "Tools.h"
+#include "Workpoint.h"
 
-
+class Toolchain;
 
 class Problem {
 	std::vector<Workpoint> workpoints;
 
 public:
-	void generateProblem(int workpoints, int maxtools, ToolChain toolchain);
+	void generateProblem(int workpoints, int maxtools, Toolchain toolchain);
 };
 
 #endif /* PROBLEM_H_ */

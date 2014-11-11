@@ -6,7 +6,8 @@
  */
 
 #include "Problem.h"
+#include "Toolchain.h"
 
-void Problem::generateProblem(int workpoints, int maxtools, ToolChain toolchain) {
+void Problem::generateProblem(int workpoints, int maxtools, Toolchain toolchain) {
 
 }

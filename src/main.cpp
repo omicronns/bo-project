@@ -7,22 +7,30 @@
 
 #include <iostream>
 #include <string>
-#include <unordered_set>
 
 #include "Problem.h"
+#include "Solver.h"
+#include "Toolchain.h"
+#include "Random.h"
 
 int main(void) {
 	std::cout << "hello" << "\n";
 
-	Workpoint pt(0, 0, 1);
+	Toolchain tlc;
+    tlc.addTool("wiertło");
+    tlc.addTool("nóz");
+    tlc.addTool("łyżka");
+    tlc.addTool("widelec");
 
-	pt.pushTool(5);
-	pt.pushTool(3);
-	pt.pushTool(2);
-	std::cout << pt.popTool() << " " << pt.toolsCount() << "\n";
-	std::cout << pt.popTool() << " " << pt.toolsCount() << "\n";
-	std::cout << pt.popTool() << " " << pt.toolsCount() << "\n";
-	std::cout << pt.popTool() << " " << pt.toolsCount() << "\n";
+	Solver slv(Problem(10, 5, tlc));
+
+    std::cout << tlc << slv.getProblem();
+
+	std::vector<int> solution = slv.getSolution();
+
+	for(std::vector<int>::iterator it = solution.begin(); it != solution.end(); ++it) {
+	    std::cout << *it << "; ";
+	}
 
 	return 0;
 }

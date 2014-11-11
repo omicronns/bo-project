@@ -8,8 +8,18 @@
 #ifndef SOLVER_H_
 #define SOLVER_H_
 
-class Solver {
+#include <vector>
 
+#include "Problem.h"
+
+class Solver {
+    Problem problem;
+    std::vector<int> solution;
+
+public:
+    Solver(Problem problem);
+    std::vector<int> getSolution();
+    Problem getProblem();
 };
 
 #endif /* SOLVER_H_ */

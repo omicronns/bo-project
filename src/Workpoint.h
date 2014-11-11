@@ -17,10 +17,16 @@ class Workpoint {
     std::list<int> toolSequence;
 
 public:
-    Workpoint(int n, double x, double y);
-    int toolsCount();
+    Workpoint(int n, Point pt);
+    Point getPoint() const;
+    int getN() const;
+    int getToolsCount() const;
+    int getNextTool() const;
+    std::list<int> getToolSequence() const;
     int popTool();
     void pushTool(int toolId);
 };
+
+std::ostream &operator<<(std::ostream & str, const Workpoint &workpoint);
 
 #endif /* WORKPOINT_H_ */

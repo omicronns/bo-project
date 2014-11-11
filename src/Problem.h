@@ -8,20 +8,24 @@
 #ifndef PROBLEM_H_
 #define PROBLEM_H_
 
-#include <iostream>
-#include <random>
-#include <string>
 #include <vector>
 
+#include "Toolchain.h"
 #include "Workpoint.h"
-
-class Toolchain;
+#include "Random.h"
 
 class Problem {
+    int workpointsCount;
+    Toolchain toolchain;
 	std::vector<Workpoint> workpoints;
 
 public:
-	void generateProblem(int workpoints, int maxtools, Toolchain toolchain);
+    Problem(int workpointsCount, int maxtools, Toolchain toolchain);
+    Problem(std::vector<Workpoint> workpoints, Toolchain toolchain);
+    Toolchain getToolchain() const;
+    std::vector<Workpoint> getWorkpoints() const;
 };
+
+std::ostream &operator<<(std::ostream & str, const Problem &problem);
 
 #endif /* PROBLEM_H_ */

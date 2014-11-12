@@ -7,6 +7,7 @@
 
 #include <iomanip>
 #include <iostream>
+#include <sstream>
 #include "Workpoint.h"
 
 Workpoint::Workpoint(int n, Point pt) :
@@ -52,28 +53,34 @@ int Workpoint::popTool() {
 }
 
 void Workpoint::pushTool(int toolId) {
-    toolSequence.push_back(toolId);
+    toolSequence.push_front(toolId);
 }
 
 std::ostream &operator<<(std::ostream & str, const Workpoint &workpoint) {
-    str << "{";
-    str << std::setw(3) << workpoint.getN();
-    str << " ; (";
-    str << std::setw(12) << std::setprecision(6) << workpoint.getPoint().getX();
-    str << ", ";
-    str << std::setw(12) << std::setprecision(6) << workpoint.getPoint().getY();
-    str << ") ; ";
+    str << std::setw(4) << workpoint.getN() << "\t";
+    str << workpoint.getPoint() << "\t";
     std::list<int> toolList = workpoint.getToolSequence();
     if(toolList.size() != 0) {
-        while(toolList.size() > 1) {
-            str << std::setw(2) << toolList.back();
-            str << "->";
+        while(toolList.size() != 0) {
+            str << std::setw(3) << toolList.back();
             toolList.pop_back();
         }
-        str << std::setw(2) << toolList.back();
     }
-    else {
-        str << std::setw(2) << "--";
+    return str;
+}
+
+std::istream &operator>>(std::istream & str, Workpoint &workpoint) {
+    std::istringstream lineStream;
+    std::string line;
+    std::getline(str, line);
+    lineStream.str(line);
+    int n, tool;
+    Point pt;
+    lineStream >> n >> pt;
+    Workpoint wp(n, pt);
+    while(lineStream >> tool) {
+        wp.pushTool(tool);
     }
-    return str << " }";
+    workpoint = wp;
+    return str;
 }

@@ -22,5 +22,6 @@ public:
 };
 
 std::ostream &operator<<(std::ostream & str, const Point &pt);
+std::istream &operator>>(std::istream & str, Point &pt);
 
 #endif /* POINT_H_ */

@@ -8,8 +8,6 @@
 #ifndef TOOLCHAIN_H_
 #define TOOLCHAIN_H_
 
-#include <iostream>
-#include <stdexcept>
 #include <vector>
 #include "Tool.h"
 
@@ -28,5 +26,6 @@ public:
 };
 
 std::ostream &operator<<(std::ostream &str, const Toolchain &toolchain);
+std::istream &operator>>(std::istream &str, Toolchain &toolchain);
 
 #endif /* TOOLCHAIN_H_ */

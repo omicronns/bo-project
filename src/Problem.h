@@ -15,17 +15,19 @@
 #include "Random.h"
 
 class Problem {
-    int workpointsCount;
+    friend std::istream &operator>>(std::istream & str, Problem &problem);
+
     Toolchain toolchain;
-	std::vector<Workpoint> workpoints;
+    std::vector<Workpoint> workpoints;
 
 public:
-    Problem(int workpointsCount, int maxtools, Toolchain toolchain);
-    Problem(std::vector<Workpoint> workpoints, Toolchain toolchain);
+    Problem(Toolchain toolchain);
+    Problem(int workpointsCount, int maxtools, Toolchain toolchain, double maxX = 1.0, double maxY = 1.0);
     Toolchain getToolchain() const;
     std::vector<Workpoint> getWorkpoints() const;
 };
 
 std::ostream &operator<<(std::ostream & str, const Problem &problem);
+std::istream &operator>>(std::istream & str, Problem &problem);
 
 #endif /* PROBLEM_H_ */

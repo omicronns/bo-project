@@ -6,7 +6,8 @@
  */
 
 #include "Toolchain.h"
-
+#include <sstream>
+#include <stdexcept>
 
 Toolchain::Toolchain() :
         toolCount(0) {
@@ -57,5 +58,27 @@ std::ostream &operator<<(std::ostream & str, const Toolchain &toolchain) {
         str << toolchain.getTool(i) << "\n";
     }
     str << "> > > > toolchain end\n";
+    return str;
+}
+
+std::istream &operator>>(std::istream &str, Toolchain &toolchain) {
+    std::string prologue;
+    std::getline(str, prologue);
+    if(prologue != "> > > > toolchain begin") {
+        std::cerr << "wrong prologue, toolchain corrupted\n";
+        return str;
+    }
+    std::string line;
+    std::getline(str, line);
+    while(line != "> > > > toolchain end") {
+        std::istringstream lineStream;
+        lineStream.str(line);
+        std::string name;
+        double cost;
+        lineStream >> name;
+        lineStream >> cost;
+        toolchain.addTool(name, cost);
+        std::getline(str, line);
+    }
     return str;
 }

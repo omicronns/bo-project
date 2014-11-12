@@ -18,11 +18,13 @@ class Solver {
 
 public:
     Solver(Problem problem);
-    std::vector<int> getSolution();
-    Problem getProblem();
+    std::vector<int> getSolution() const;
+    Problem getProblem() const;
     double calcCost();
     void permuteSolution(int iterations);
     double solve(int iterations);
 };
+
+std::ostream &operator<<(std::ostream & str, const Solver &solver);
 
 #endif /* SOLVER_H_ */

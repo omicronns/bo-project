@@ -25,11 +25,11 @@ Solver::Solver(Problem problem)
     }
 }
 
-std::vector<int> Solver::getSolution() {
+std::vector<int> Solver::getSolution() const {
     return solution;
 }
 
-Problem Solver::getProblem() {
+Problem Solver::getProblem() const {
     return problem;
 }
 
@@ -45,7 +45,6 @@ double Solver::calcCost() {
         if(tool != lastTool) {
             cost += toolchain.getTool(tool).getToolCost();
             cost += lastPoint.distanceSqr(Point()) + workpoints[*it].getPoint().distanceSqr(Point());
-//            std::cout << lastTool << "->" << tool << "\n";
             lastTool = tool;
         }
         lastPoint = workpoints[*it].getPoint();
@@ -81,4 +80,14 @@ double Solver::solve(int iterations) {
     }
     solution = bestSolution;
     return bestCost;
+}
+
+std::ostream &operator<<(std::ostream & str, const Solver &solver) {
+    Toolchain tlc = solver.getProblem().getToolchain();
+    std::vector<int> solution = solver.getSolution();
+    str << "> > > > solution begin";
+    for(std::vector<int>::iterator it = solution.begin(); it != solution.end(); ++it) {
+        str << *it << tlc.getToolName(*it);
+    }
+    return str << "> > > > solution end";
 }

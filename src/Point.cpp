@@ -27,3 +27,11 @@ double Point::distanceSqr(Point pt) const {
 std::ostream &operator<<(std::ostream & str, const Point &pt) {
     return str << "(" << pt.getX() << ", " << pt.getY() << ")";
 }
+
+std::istream &operator>>(std::istream & str, Point &pt) {
+    char dummy;
+    double x, y;
+    str >> dummy >> x >> dummy >> y >> dummy;
+    pt = Point(x, y);
+    return str;
+}

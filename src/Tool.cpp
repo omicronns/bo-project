@@ -6,6 +6,7 @@
  */
 
 #include "Tool.h"
+#include <iomanip>
 
 Tool::Tool(int id, std::string name, double cost) :
         name(name), id(id), cost(cost) {
@@ -32,5 +33,5 @@ bool Tool::operator!=(const Tool &tool) const {
 }
 
 std::ostream &operator<<(std::ostream & str, const Tool &tool) {
-    return str << "[" << tool.getToolId() << ":" << tool.getToolName() << "]";
+    return str << std::setw(20) << tool.getToolName() << "\t" << tool.getToolCost();
 }

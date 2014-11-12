@@ -17,7 +17,7 @@ class Workpoint {
     std::list<int> toolSequence;
 
 public:
-    Workpoint(int n, Point pt);
+    Workpoint(int n = 0, Point pt = Point());
     Point getPoint() const;
     int getN() const;
     int getToolsCount() const;
@@ -28,5 +28,6 @@ public:
 };
 
 std::ostream &operator<<(std::ostream & str, const Workpoint &workpoint);
+std::istream &operator>>(std::istream & str, Workpoint &workpoint);
 
 #endif /* WORKPOINT_H_ */

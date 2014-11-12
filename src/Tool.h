@@ -21,8 +21,6 @@ public:
     std::string getToolName() const;
     int getToolId() const;
     double getToolCost() const;
-    bool operator==(const Tool &tool) const;
-    bool operator!=(const Tool &tool) const;
 };
 
 std::ostream &operator<<(std::ostream &str, const Tool &tool);

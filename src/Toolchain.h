@@ -12,7 +12,9 @@
 #include "Tool.h"
 
 class Toolchain {
-    int toolCount;
+    friend std::ostream &operator<<(std::ostream &str, const Toolchain &toolchain);
+    friend std::istream &operator>>(std::istream &str, Toolchain &toolchain);
+
     std::vector<Tool> toolChain;
 
 public:

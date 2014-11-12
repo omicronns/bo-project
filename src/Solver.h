@@ -13,16 +13,17 @@
 #include "Problem.h"
 
 class Solver {
+    friend std::ostream &operator<<(std::ostream & str, const Solver &solver);
+
     Problem problem;
     std::vector<int> solution;
 
 public:
     Solver(Problem problem);
-    std::vector<int> getSolution() const;
-    Problem getProblem() const;
     double calcCost() const;
     void permuteSolution(int iterations);
-    double solve(double temp, double stopTemp, int itersPerTemp);
+    double solve(double temp, double stopTemp, double alpha, double beta, double gamma, int itersPerTemp);
+    std::vector<int> getSolution() const;
 };
 
 std::ostream &operator<<(std::ostream & str, const Solver &solver);

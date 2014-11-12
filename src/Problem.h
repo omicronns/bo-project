@@ -15,6 +15,7 @@
 #include "Random.h"
 
 class Problem {
+    friend std::ostream &operator<<(std::ostream & str, const Problem &problem);
     friend std::istream &operator>>(std::istream & str, Problem &problem);
 
     Toolchain toolchain;

@@ -20,16 +20,8 @@ int Tool::getToolId() const {
     return id;
 }
 
-bool Tool::operator==(const Tool &tool) const {
-    return id == tool.id;
-}
-
 double Tool::getToolCost() const {
     return cost;
-}
-
-bool Tool::operator!=(const Tool &tool) const {
-    return id != tool.id;
 }
 
 std::ostream &operator<<(std::ostream & str, const Tool &tool) {

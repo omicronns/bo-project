@@ -10,10 +10,7 @@
 #include <string>
 
 #include "ParseOptions.h"
-#include "Problem.h"
 #include "Solver.h"
-#include "Toolchain.h"
-#include "Random.h"
 
 int main(int argc, const char **argv) {
 	ParseOptions parser(argc, argv);
@@ -70,9 +67,21 @@ int main(int argc, const char **argv) {
         Problem pr(tlc);
         problemFile >> pr;
         problemFile.close();
+        double temp0 = 1000;
+        parser.getOptionValue("-t0", temp0);
+        double tempf = 1;
+        parser.getOptionValue("-tf", tempf);
+        double alpha = 1;
+        parser.getOptionValue("-al", alpha);
+        double beta = 0.1;
+        parser.getOptionValue("-bt", beta);
+        double gamma = 0.1;
+        parser.getOptionValue("-gm", gamma);
+        int iters = 100;
+        parser.getOptionValue("-it", iters);
         Solver slv(pr);
         std::cout << "cost: " << slv.calcCost() << "\n";
-        double cost = slv.solve(100, 2, 1000);
+        double cost = slv.solve(temp0, tempf, alpha, beta, gamma, iters);
         std::cout << slv << "cost: " << cost << "\n";
 	}
 

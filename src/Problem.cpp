@@ -34,9 +34,8 @@ std::vector<Workpoint> Problem::getWorkpoints() const {
 }
 
 std::ostream &operator<<(std::ostream & str, const Problem &problem) {
-    std::vector<Workpoint> workpoints = problem.getWorkpoints();
     str << "> > > > problem begin\n";
-    for(std::vector<Workpoint>::const_iterator it = workpoints.begin(); it != workpoints.end(); ++it) {
+    for(std::vector<Workpoint>::const_iterator it = problem.workpoints.begin(); it != problem.workpoints.end(); ++it) {
         str << *it << "\n";
     }
     return str << "> > > > problem end\n";

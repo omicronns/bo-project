@@ -12,17 +12,20 @@
 #include "Point.h"
 
 class Workpoint {
+    friend std::ostream &operator<<(std::ostream & str, const Workpoint &workpoint);
+    friend std::istream &operator>>(std::istream & str, Workpoint &workpoint);
+
     int n;
     Point pt;
     std::list<int> toolSequence;
 
 public:
-    Workpoint(int n = 0, Point pt = Point());
+    Workpoint() = default;
+    Workpoint(int n, Point pt);
     Point getPoint() const;
     int getN() const;
     int getToolsCount() const;
     int getNextTool() const;
-    std::list<int> getToolSequence() const;
     int popTool();
     void pushTool(int toolId);
 };

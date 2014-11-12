@@ -9,20 +9,19 @@
 #include <sstream>
 #include <stdexcept>
 
-Toolchain::Toolchain() :
-        toolCount(0) {
+Toolchain::Toolchain() {
 }
 
 int Toolchain::addTool(std::string name, double cost) {
     if(getToolId(name) == -1) {
-        toolChain.push_back(Tool(toolCount++, name, cost));
+        toolChain.push_back(Tool(toolChain.size(), name, cost));
         return toolChain.back().getToolId();
     }
     return -1;
 }
 
 int Toolchain::getToolsCount() const {
-    return toolCount;
+    return toolChain.size();
 }
 
 int Toolchain::getToolId(std::string name) const {
@@ -40,7 +39,7 @@ std::string Toolchain::getToolName(int id) const {
         return toolChain.at(id).getToolName();
     }
     catch(std::out_of_range &e) {
-        return "[err: trying to access tool at index outside toolchain]";
+        return "";
     }
 }
 

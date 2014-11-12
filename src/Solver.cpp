@@ -29,10 +29,6 @@ std::vector<int> Solver::getSolution() const {
     return solution;
 }
 
-Problem Solver::getProblem() const {
-    return problem;
-}
-
 double Solver::calcCost() const {
     Point lastPoint = Point();
     double cost = 0.0;
@@ -63,21 +59,21 @@ void Solver::permuteSolution(int iterations) {
     }
 }
 
-double Solver::solve(double temp, double stopTemp, int itersPerTemp) {
+double Solver::solve(double temp, double stopTemp, double alpha, double beta, double gamma, int itersPerTemp) {
     Random rand;
     double bestCost = calcCost();
     std::vector<int> bestSolution = solution;
 
     while(temp > stopTemp) {
         for(int i = 0; i < itersPerTemp; ++i) {
-            permuteSolution(temp/10 + 1);
+            permuteSolution(temp*gamma + 1);
             double cost = calcCost();
             if(cost < bestCost) {
                 bestCost = cost;
                 bestSolution = solution;
             }
             else {
-                if(rand.randf() < std::exp((bestCost - cost)/temp)) {
+                if(rand.randf() < std::exp(((bestCost - cost)*beta)/temp)) {
                     bestCost = cost;
                     bestSolution = solution;
                 }
@@ -86,18 +82,17 @@ double Solver::solve(double temp, double stopTemp, int itersPerTemp) {
                 }
             }
         }
-        temp *= 0.5;
+        temp *= alpha;
     }
     return bestCost;
 }
 
 std::ostream &operator<<(std::ostream & str, const Solver &solver) {
-    Toolchain tlc = solver.getProblem().getToolchain();
-    std::vector<int> solution = solver.getSolution();
-    std::vector<Workpoint> workpoints = solver.getProblem().getWorkpoints();
+    Toolchain tlc = solver.problem.getToolchain();
+    std::vector<Workpoint> workpoints = solver.problem.getWorkpoints();
 
     str << "> > > > solution begin\n";
-    for(std::vector<int>::iterator it = solution.begin(); it != solution.end(); ++it) {
+    for(std::vector<int>::const_iterator it = solver.solution.begin(); it != solver.solution.end(); ++it) {
         str << *it << "\t" << tlc.getToolName(workpoints[*it].popTool()) << "\n";
     }
     return str << "> > > > solution end\n";

@@ -20,9 +20,9 @@ public:
     Solver(Problem problem);
     std::vector<int> getSolution() const;
     Problem getProblem() const;
-    double calcCost();
+    double calcCost() const;
     void permuteSolution(int iterations);
-    double solve(int iterations);
+    double solve(double temp, double stopTemp, int itersPerTemp);
 };
 
 std::ostream &operator<<(std::ostream & str, const Solver &solver);

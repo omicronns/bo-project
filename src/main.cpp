@@ -40,11 +40,15 @@ int main(int argc, const char **argv) {
             std::cerr << "toolchain filename not specified\n";
             return 0;
         }
+        int maxX = 1.0;
+        parser.getOptionValue("-mx", maxX);
+        int maxY = 1.0;
+        parser.getOptionValue("-my", maxY);
         std::fstream toolchainFile(toolchainFilename, std::ios::in);
         Toolchain tlc;
         toolchainFile >> tlc;
         toolchainFile.close();
-        problemFile << Problem(workpointsCount, maxtools, tlc);
+        problemFile << Problem(workpointsCount, maxtools, tlc, maxX, maxY);
         problemFile.close();
 	}
 	else if(parser.findOption("-s") != -1) {
@@ -67,8 +71,9 @@ int main(int argc, const char **argv) {
         problemFile >> pr;
         problemFile.close();
         Solver slv(pr);
-//        slv.solve(1000);
-//        std::cout << slv;
+        std::cout << "cost: " << slv.calcCost() << "\n";
+        double cost = slv.solve(100, 2, 1000);
+        std::cout << slv << "cost: " << cost << "\n";
 	}
 
 	return 0;

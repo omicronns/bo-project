@@ -6,7 +6,7 @@
  */
 
 #include <iostream>
-#include <fstream>
+#include <sstream>
 #include "Problem.h"
 #include "Toolchain.h"
 
@@ -53,7 +53,9 @@ std::istream &operator>>(std::istream & str, Problem &problem) {
     std::getline(str, line);
     while(line != "> > > > problem end") {
         Workpoint wp;
-        str >> wp;
+        std::istringstream lineStream;
+        lineStream.str(line);
+        lineStream >> wp;
         problem.workpoints.push_back(wp);
         std::getline(str, line);
     }

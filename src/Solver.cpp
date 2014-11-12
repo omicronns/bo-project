@@ -33,13 +33,13 @@ Problem Solver::getProblem() const {
     return problem;
 }
 
-double Solver::calcCost() {
+double Solver::calcCost() const {
     Point lastPoint = Point();
     double cost = 0.0;
     std::vector<Workpoint> workpoints = problem.getWorkpoints();
     Toolchain toolchain = problem.getToolchain();
     int lastTool = -1;
-    for(std::vector<int>::iterator it = solution.begin(); it != solution.end(); ++it) {
+    for(std::vector<int>::const_iterator it = solution.begin(); it != solution.end(); ++it) {
         cost += lastPoint.distanceSqr(workpoints[*it].getPoint());
         int tool = workpoints[*it].popTool();
         if(tool != lastTool) {
@@ -63,31 +63,42 @@ void Solver::permuteSolution(int iterations) {
     }
 }
 
-double Solver::solve(int iterations) {
+double Solver::solve(double temp, double stopTemp, int itersPerTemp) {
+    Random rand;
     double bestCost = calcCost();
     std::vector<int> bestSolution = solution;
 
-    while(iterations--) {
-        permuteSolution(10);
-        double cost = calcCost();
-        if(cost < bestCost) {
-            bestCost = cost;
-            bestSolution = solution;
+    while(temp > stopTemp) {
+        for(int i = 0; i < itersPerTemp; ++i) {
+            permuteSolution(temp/10 + 1);
+            double cost = calcCost();
+            if(cost < bestCost) {
+                bestCost = cost;
+                bestSolution = solution;
+            }
+            else {
+                if(rand.randf() < std::exp((bestCost - cost)/temp)) {
+                    bestCost = cost;
+                    bestSolution = solution;
+                }
+                else {
+                    solution = bestSolution;
+                }
+            }
         }
-        else {
-            solution = bestSolution;
-        }
+        temp *= 0.5;
     }
-    solution = bestSolution;
     return bestCost;
 }
 
 std::ostream &operator<<(std::ostream & str, const Solver &solver) {
     Toolchain tlc = solver.getProblem().getToolchain();
     std::vector<int> solution = solver.getSolution();
-    str << "> > > > solution begin";
+    std::vector<Workpoint> workpoints = solver.getProblem().getWorkpoints();
+
+    str << "> > > > solution begin\n";
     for(std::vector<int>::iterator it = solution.begin(); it != solution.end(); ++it) {
-        str << *it << tlc.getToolName(*it);
+        str << *it << "\t" << tlc.getToolName(workpoints[*it].popTool()) << "\n";
     }
-    return str << "> > > > solution end";
+    return str << "> > > > solution end\n";
 }

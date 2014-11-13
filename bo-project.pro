@@ -12,8 +12,8 @@ TARGET = bo-project
 TEMPLATE = app
 
 
-SOURCES +=  main.cpp\
-            widget.cpp \
+SOURCES +=  src/main.cpp\
+            src/widget.cpp \
             src/ParseOptions.cpp \
             src/Point.cpp \
             src/Problem.cpp \
@@ -23,7 +23,7 @@ SOURCES +=  main.cpp\
             src/Toolchain.cpp \
             src/Workpoint.cpp
 
-HEADERS  += widget.h \
+HEADERS  += src/widget.h \
             src/ParseOptions.h \
             src/Point.h \
             src/Problem.h \

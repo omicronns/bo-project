@@ -74,12 +74,13 @@ double Solver::solve(double temp,
         for(int i = 0; i < itersPerTemp; ++i) {
             permuteSolution(temp * gamma + 1);
             double cost = calcCost();
-            costs.push_back(cost);
             if(cost < bestCost) {
+                costs.push_back(cost);
                 bestCost = cost;
                 bestSolution = solution;
             } else {
                 if(rand.randf() < std::exp(((bestCost - cost) * beta) / temp)) {
+                    costs.push_back(cost);
                     bestCost = cost;
                     bestSolution = solution;
                 } else {

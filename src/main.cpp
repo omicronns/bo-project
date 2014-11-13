@@ -81,7 +81,8 @@ int main(int argc, const char **argv) {
         parser.getOptionValue("-it", iters);
         Solver slv(pr);
         std::cout << "cost: " << slv.calcCost() << "\n";
-        double cost = slv.solve(temp0, tempf, alpha, beta, gamma, iters);
+        std::list<double> costs;
+        double cost = slv.solve(temp0, tempf, alpha, beta, gamma, iters, costs);
         std::cout << slv << "cost: " << cost << "\n";
 	}
 

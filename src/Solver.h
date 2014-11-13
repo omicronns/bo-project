@@ -22,7 +22,13 @@ public:
     Solver(Problem problem);
     double calcCost() const;
     void permuteSolution(int iterations);
-    double solve(double temp, double stopTemp, double alpha, double beta, double gamma, int itersPerTemp);
+    double solve(double temp,
+                 double stopTemp,
+                 double alpha,
+                 double beta,
+                 double gamma,
+                 int itersPerTemp,
+                 std::list<double> costs);
     std::vector<int> getSolution() const;
 };
 

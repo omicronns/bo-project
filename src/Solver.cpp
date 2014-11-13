@@ -59,32 +59,37 @@ void Solver::permuteSolution(int iterations) {
     }
 }
 
-double Solver::solve(double temp, double stopTemp, double alpha, double beta, double gamma, int itersPerTemp) {
+double Solver::solve(double temp,
+                     double stopTemp,
+                     double alpha,
+                     double beta,
+                     double gamma,
+                     int itersPerTemp,
+                     std::list<double> costs) {
     Random rand;
     double bestCost = calcCost();
     std::vector<int> bestSolution = solution;
 
     while(temp > stopTemp) {
         for(int i = 0; i < itersPerTemp; ++i) {
-            permuteSolution(temp*gamma + 1);
+            permuteSolution(temp * gamma + 1);
             double cost = calcCost();
+            costs.push_back(cost);
             if(cost < bestCost) {
                 bestCost = cost;
                 bestSolution = solution;
-            }
-            else {
-                if(rand.randf() < std::exp(((bestCost - cost)*beta)/temp)) {
+            } else {
+                if(rand.randf() < std::exp(((bestCost - cost) * beta) / temp)) {
                     bestCost = cost;
                     bestSolution = solution;
-                }
-                else {
+                } else {
                     solution = bestSolution;
                 }
             }
         }
         temp *= alpha;
     }
-    return bestCost;
+    return costs;
 }
 
 std::ostream &operator<<(std::ostream & str, const Solver &solver) {

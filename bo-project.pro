@@ -35,7 +35,7 @@ HEADERS  += src/widget.h \
 
 INCLUDEPATH += src/
 
-FORMS    += widget.ui
+FORMS    += forms/widget.ui
 
 QMAKE_CXXFLAGS += -std=c++11
 

@@ -28,7 +28,7 @@ public:
                  double beta,
                  double gamma,
                  int itersPerTemp,
-                 std::list<double> costs);
+                 std::list<double> &costs);
     std::vector<int> getSolution() const;
 };
 

@@ -65,7 +65,7 @@ double Solver::solve(double temp,
                      double beta,
                      double gamma,
                      int itersPerTemp,
-                     std::list<double> costs) {
+                     std::list<double> &costs) {
     Random rand;
     double bestCost = calcCost();
     std::vector<int> bestSolution = solution;
@@ -89,7 +89,7 @@ double Solver::solve(double temp,
         }
         temp *= alpha;
     }
-    return costs;
+    return bestCost;
 }
 
 std::ostream &operator<<(std::ostream & str, const Solver &solver) {

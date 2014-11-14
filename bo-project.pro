@@ -12,7 +12,7 @@ TARGET = bo-project
 TEMPLATE = app
 
 
-SOURCES +=  src/qt/main.cpp\
+SOURCES +=  src/qt/main.cpp \
             src/qt/widget.cpp \
             src/engine/ParseOptions.cpp \
             src/engine/Point.cpp \
@@ -33,8 +33,8 @@ HEADERS  += src/qt/widget.h \
             src/engine/Toolchain.h \
             src/engine/Workpoint.h
 
-INCLUDEPATH +=  src/engine/ \
-                src/qt/
+INCLUDEPATH +=  src/qt/ \
+                src/engine/
 
 FORMS    += src/qt/widget.ui
 

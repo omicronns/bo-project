@@ -56,3 +56,6 @@ target/
 # Vim files
 *.swp
 /Debug
+
+
+*.pro.user*

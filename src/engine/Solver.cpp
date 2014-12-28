@@ -7,7 +7,6 @@
 
 #include "Solver.h"
 #include "Random.h"
-#include "temperaturedata.h"
 
 Solver::Solver(Problem problem)
         : problem(problem) {

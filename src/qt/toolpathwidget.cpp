@@ -63,7 +63,19 @@ void ToolPathWidget::scaleCoordinates(const std::vector<Workpoint> & workpoint) 
 }
 
 void ToolPathWidget::printPoints(QPainter * painter) {
+    auto pen = painter->pen();
+
+    painter->setPen(QPen(Qt::black));
+    painter->setBrush(QBrush(Qt::black));
+    for (auto it = scaledCoordinates.begin(); it != scaledCoordinates.end(); ++it)  {
+        double x  = (*it).getX();
+        double y  = (*it).getY();
+        QPoint circlePoint(x, y);
+        painter->drawEllipse(circlePoint, 3, 3);
+    }
+
     int counter = 0;
+    painter->setPen(pen);
     for (auto it = scaledCoordinates.begin(); it != scaledCoordinates.end(); ++it, counter++) {
         double x  = (*it).getX();
         double y  = (*it).getY();

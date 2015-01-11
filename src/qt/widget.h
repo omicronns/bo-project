@@ -12,16 +12,18 @@ class Widget;
 #include "Problem.h"
 #include "Solver.h"
 #include "Tool.h"
+#include "generateform.h"
 #include <qcustomplot.h>
 
 class Widget : public QWidget
 {
     Q_OBJECT
 
-    Toolchain *toolchain;
-    Problem *problem;
+    Toolchain toolchain;
+    Problem problem;
     QString toolchainFilename;
     QString problemFilename;
+    GenerateForm gen;
 
 public:
     explicit Widget(QWidget *parent = 0);

@@ -10,6 +10,10 @@
 #include "Problem.h"
 #include "Toolchain.h"
 
+
+Problem::Problem() {
+}
+
 Problem::Problem(Toolchain toolchain)
         : toolchain(toolchain) {
 }
@@ -23,6 +27,10 @@ Problem::Problem(int workpointsCount, int maxtools, Toolchain toolchain, double 
             workpoints.back().pushTool(rand.randi(0, toolCount - 1));
         }
     }
+}
+
+void Problem::setToolchain(Toolchain toolchain) {
+    this->toolchain = toolchain;
 }
 
 Toolchain Problem::getToolchain() const {
@@ -50,6 +58,7 @@ std::istream &operator>>(std::istream & str, Problem &problem) {
     }
     std::string line;
     std::getline(str, line);
+    problem.workpoints.clear();
     while(line != "> > > > problem end") {
         Workpoint wp;
         std::istringstream lineStream;

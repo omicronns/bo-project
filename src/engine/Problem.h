@@ -22,8 +22,10 @@ class Problem {
     std::vector<Workpoint> workpoints;
 
 public:
+    Problem();
     Problem(Toolchain toolchain);
     Problem(int workpointsCount, int maxtools, Toolchain toolchain, double maxX = 1.0, double maxY = 1.0);
+    void setToolchain(Toolchain toolchain);
     Toolchain getToolchain() const;
     std::vector<Workpoint> getWorkpoints() const;
 };

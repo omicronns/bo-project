@@ -11,7 +11,10 @@
 #include <vector>
 
 #include "Problem.h"
+
+#if !defined(CLI)
 #include "globalvariables.h"
+#endif
 
 class Solver {
     friend std::ostream &operator<<(std::ostream & str, const Solver &solver);

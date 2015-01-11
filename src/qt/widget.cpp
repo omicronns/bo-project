@@ -5,12 +5,14 @@
 #include <fstream>
 #include <list>
 #include <vector>
+#include "generateform.h"
 #include "Solver.h"
 #include "globalvariables.h"
 
 Widget::Widget(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::Widget)
+    ui(new Ui::Widget),
+    gen(this)
 {
     ui->setupUi(this);
 
@@ -22,7 +24,9 @@ Widget::Widget(QWidget *parent) :
     connect(ui->plot, SIGNAL(mouseDoubleClick(QMouseEvent*)), this, SLOT(mouseDoubleClick()));
     connect(ui->run, SIGNAL(pressed()), this, SLOT(setStatusLabel()));
     ui->label_status->setText("Ready");
-
+    gen.setToolchain(&toolchain);
+    gen.setProblem(&problem);
+    gen.setRunButton(ui->run);
 }
 
 void Widget::setStatusLabel() {
@@ -43,12 +47,13 @@ Widget::~Widget()
 
 void Widget::selectToolchain()
 {
-    Toolchain tlc;
     QString toolchainFilename = QFileDialog::getOpenFileName();
     std::fstream toolchainFile(toolchainFilename.toStdString(), std::ios::in);
-    if(toolchainFile.is_open())
-        toolchainFile >> tlc;
-    if(tlc.getToolsCount() != 0) {
+    if(toolchainFile.is_open()) {
+        toolchainFile >> toolchain;
+        toolchainFile.close();
+    }
+    if(toolchain.getToolsCount() != 0) {
         ui->problem->setEnabled(true);
         ui->gen->setEnabled(true);
     }
@@ -57,34 +62,34 @@ void Widget::selectToolchain()
         ui->gen->setEnabled(false);
         ui->run->setEnabled(false);
     }
-    toolchain = new Toolchain(tlc);
 
     GUIDataObject.clear(GUIData::toolchainEnum);
-    GUIDataObject.setToolchain(tlc.getToolChain());
+    GUIDataObject.setToolchain(toolchain.getToolChain());
 }
 
 void Widget::selectProblem()
 {
-    Problem pr(*toolchain);
+    problem.setToolchain(toolchain);
     QString problemFilename = QFileDialog::getOpenFileName();
     std::fstream problemFile(problemFilename.toStdString(), std::ios::in);
-    if(problemFile.is_open())
-        problemFile >> pr;
-    if(pr.getWorkpoints().size() != 0) {
+    if(problemFile.is_open()) {
+        problemFile >> problem;
+        problemFile.close();
+    }
+    if(problem.getWorkpoints().size() != 0) {
         ui->run->setEnabled(true);
     }
     else {
         ui->run->setEnabled(false);
     }
-    problem = new Problem(pr);
 
     GUIDataObject.clear(GUIData::workointsEnum);
-    GUIDataObject.setWorkpoints(pr.getWorkpoints());
+    GUIDataObject.setWorkpoints(problem.getWorkpoints());
 }
 
 void Widget::run()
 {
-    Solver slv(*problem);
+    Solver slv(problem);
     std::list<double> costs;
     double cost = slv.solve(ui->initTemp->value(), ui->endTemp->value(), ui->alpha->value(), ui->beta->value(), ui->gamma->value(), ui->iterations->value(), costs);
     ui->cost->setValue(cost);
@@ -163,8 +168,6 @@ void Widget::on_comboBox_2_currentIndexChanged(int index) {
     ui->widget->setCurrentTool(index);
     ui->widget->update();
 }
-
-
 
 std::vector<double> Widget::computeTemperatureAmplitude(const std::vector<double> &y) {
     auto &temperature = GUIDataObject.getTemperature();
@@ -288,6 +291,7 @@ void Widget::plotStatGraphs(const std::vector<double> &y) {
     customPlot->replot();
 }
 
+
 void Widget::generate() {
-    //TODO: add generation of random problems
+    gen.show();
 }

@@ -71,7 +71,9 @@ double Solver::solve(double temp,
     std::vector<int> bestSolution = solution;
 
     //dodane
+#if !defined(CLI)
     GUIDataObject.clear(GUIData::temperatureEnum);
+#endif
 
     while(temp > stopTemp) {
         for(int i = 0; i < itersPerTemp; ++i) {
@@ -83,14 +85,18 @@ double Solver::solve(double temp,
                 bestSolution = solution;
 
                 //dodane
+#if !defined(CLI)
                 GUIDataObject.temperature_pushBack(temp);
+#endif
 
             } else {
                 if(rand.randf() < std::exp(((bestCost - cost) * beta) / temp)) {
                     costs.push_back(cost);
 
                     //dodane
+#if !defined(CLI)
                     GUIDataObject.temperature_pushBack(temp);
+#endif
 
                     bestCost = cost;
                     bestSolution = solution;

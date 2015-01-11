@@ -161,7 +161,7 @@
          <item row="4" column="0">
           <widget class="QDoubleSpinBox" name="gamma">
            <property name="minimum">
-            <double>0.010000000000000</double>
+            <double>0.000000000000000</double>
            </property>
            <property name="maximum">
             <double>0.990000000000000</double>

@@ -62,9 +62,6 @@ void Widget::selectToolchain()
         ui->gen->setEnabled(false);
         ui->run->setEnabled(false);
     }
-
-    GUIDataObject.clear(GUIData::toolchainEnum);
-    GUIDataObject.setToolchain(toolchain.getToolChain());
 }
 
 void Widget::selectProblem()
@@ -82,13 +79,14 @@ void Widget::selectProblem()
     else {
         ui->run->setEnabled(false);
     }
-
-    GUIDataObject.clear(GUIData::workointsEnum);
-    GUIDataObject.setWorkpoints(problem.getWorkpoints());
 }
 
 void Widget::run()
 {
+    GUIDataObject.clear(GUIData::toolchainEnum);
+    GUIDataObject.setToolchain(toolchain.getToolChain());
+    GUIDataObject.clear(GUIData::workointsEnum);
+    GUIDataObject.setWorkpoints(problem.getWorkpoints());
     Solver slv(problem);
     std::list<double> costs;
     double cost = slv.solve(ui->initTemp->value(), ui->endTemp->value(), ui->alpha->value(), ui->beta->value(), ui->gamma->value(), ui->iterations->value(), costs);

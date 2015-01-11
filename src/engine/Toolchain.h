@@ -25,6 +25,8 @@ public:
     std::string getToolName(int id) const;
     Tool getTool(std::string name) const;
     Tool getTool(int id) const;
+
+    std::vector<Tool> getToolChain() const { return toolChain; }
 };
 
 std::ostream &operator<<(std::ostream &str, const Toolchain &toolchain);

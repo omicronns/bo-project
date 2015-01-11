@@ -70,6 +70,9 @@ double Solver::solve(double temp,
     double bestCost = calcCost();
     std::vector<int> bestSolution = solution;
 
+    //dodane
+    GUIDataObject.clear(GUIData::temperatureEnum);
+
     while(temp > stopTemp) {
         for(int i = 0; i < itersPerTemp; ++i) {
             permuteSolution(temp * gamma + 1);
@@ -78,9 +81,17 @@ double Solver::solve(double temp,
                 costs.push_back(cost);
                 bestCost = cost;
                 bestSolution = solution;
+
+                //dodane
+                GUIDataObject.temperature_pushBack(temp);
+
             } else {
                 if(rand.randf() < std::exp(((bestCost - cost) * beta) / temp)) {
                     costs.push_back(cost);
+
+                    //dodane
+                    GUIDataObject.temperature_pushBack(temp);
+
                     bestCost = cost;
                     bestSolution = solution;
                 } else {

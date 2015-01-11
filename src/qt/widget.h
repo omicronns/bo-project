@@ -11,6 +11,8 @@ class Widget;
 #include "Toolchain.h"
 #include "Problem.h"
 #include "Solver.h"
+#include "Tool.h"
+#include <qcustomplot.h>
 
 class Widget : public QWidget
 {
@@ -18,10 +20,14 @@ class Widget : public QWidget
 
     Toolchain *toolchain;
     Problem *problem;
+    QString toolchainFilename;
+    QString problemFilename;
 
 public:
     explicit Widget(QWidget *parent = 0);
     ~Widget();
+    //static QString toolchainFilename;
+    //static QString problemFilename;
 
 public slots:
     void selectToolchain();
@@ -29,8 +35,18 @@ public slots:
     void run();
     void generate();
 
+private slots:
+    void on_comboBox_2_currentIndexChanged(int index);
+    void mouseDoubleClick();
+    void setStatusLabel();
+
 private:
     Ui::Widget *ui;
+    void initCombo_box() const;
+    void plotGraph(std::vector<double> &x, std::vector<double> &y);
+    void plotStatGraphs(const std::vector<double> &y);
+    std::vector<double> computeTemperatureAmplitude(const std::vector<double> &y);
+    std::vector<double> computeTemperatureProgress(const std::vector<double> &y);
 };
 
 #endif // WIDGET_H

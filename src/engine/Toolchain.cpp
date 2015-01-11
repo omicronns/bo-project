@@ -59,7 +59,7 @@ std::ostream &operator<<(std::ostream & str, const Toolchain &toolchain) {
     str << "> > > > toolchain end\n";
     return str;
 }
-
+#include <iostream>
 std::istream &operator>>(std::istream &str, Toolchain &toolchain) {
     std::string prologue;
     std::getline(str, prologue);

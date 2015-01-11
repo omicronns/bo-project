@@ -79,3 +79,12 @@ std::istream &operator>>(std::istream & str, Workpoint &workpoint) {
     }
     return str;
 }
+
+int Workpoint::getLastTool() const {
+    if(toolSequence.size() != 0) {
+        return toolSequence.back();
+    } else {
+        std::cerr << "[err: trying to access a tool from an empty workpoint toollist]\n";
+        return -1;
+    }
+}

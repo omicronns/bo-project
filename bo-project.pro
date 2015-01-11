@@ -21,7 +21,10 @@ SOURCES +=  src/qt/main.cpp \
             src/engine/Solver.cpp \
             src/engine/Tool.cpp \
             src/engine/Toolchain.cpp \
-            src/engine/Workpoint.cpp
+            src/engine/Workpoint.cpp \
+    src/qt/guidata.cpp \
+    src/qt/globalvariables.cpp \
+    src/qt/toolpathwidget.cpp
 
 HEADERS  += src/qt/widget.h \
             src/engine/ParseOptions.h \
@@ -31,7 +34,10 @@ HEADERS  += src/qt/widget.h \
             src/engine/Solver.h \
             src/engine/Tool.h \
             src/engine/Toolchain.h \
-            src/engine/Workpoint.h
+            src/engine/Workpoint.h \
+    src/qt/guidata.h \
+    src/qt/globalvariables.h \
+    src/qt/toolpathwidget.h
 
 INCLUDEPATH +=  src/qt/ \
                 src/engine/

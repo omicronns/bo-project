@@ -28,6 +28,8 @@ public:
     int getNextTool() const;
     int popTool();
     void pushTool(int toolId);
+
+    int getLastTool() const;
 };
 
 std::ostream &operator<<(std::ostream & str, const Workpoint &workpoint);

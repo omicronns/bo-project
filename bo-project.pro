@@ -4,7 +4,8 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui \
+            printsupport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -18,6 +19,7 @@ SOURCES +=  src/qt/main.cpp \
             src/qt/globalvariables.cpp \
             src/qt/toolpathwidget.cpp \
             src/qt/generateform.cpp \
+            src/qt/qcustomplot/qcustomplot.cpp \
             src/engine/ParseOptions.cpp \
             src/engine/Point.cpp \
             src/engine/Problem.cpp \
@@ -32,6 +34,7 @@ HEADERS  += src/qt/widget.h \
             src/qt/globalvariables.h \
             src/qt/toolpathwidget.h \
             src/qt/generateform.h \
+            src/qt/qcustomplot/qcustomplot.h \
             src/engine/ParseOptions.h \
             src/engine/Point.h \
             src/engine/Problem.h \
@@ -42,11 +45,12 @@ HEADERS  += src/qt/widget.h \
             src/engine/Workpoint.h \
 
 INCLUDEPATH +=  src/qt/ \
+                src/qt/qcustomplot \
                 src/engine/
 
 FORMS    += src/qt/widget.ui \
-    src/qt/generateform.ui
+            src/qt/generateform.ui
 
 QMAKE_CXXFLAGS += -std=c++11
 
-LIBS += -lqcustomplot
+#LIBS += -lqcustomplot

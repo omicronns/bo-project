@@ -13,7 +13,7 @@ class Widget;
 #include "Solver.h"
 #include "Tool.h"
 #include "generateform.h"
-#include <qcustomplot.h>
+#include "qcustomplot.h"
 
 class Widget : public QWidget
 {
